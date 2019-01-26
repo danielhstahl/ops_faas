@@ -1,0 +1,63 @@
+{
+    "additionalProperties": false,
+    "properties":{
+        "t":{
+            "type": "number",
+            "example": 1.0
+        },
+        "v0":{
+            "type": "number",
+            "example": 0.95
+        },
+        "numU":{
+            "type": "integer",
+            "example": 128
+        },
+        "numOde":{
+            "type": "integer",
+            "example": 128
+        },
+        "a":{
+            "type": "number",
+            "example": 0.3
+        },
+        "sigma":{
+            "type": "number",
+            "example": 0.3
+        },
+        "lambda":{
+            "type": "number",
+            "example": 100.0
+        },
+        "correlation":{
+            "type": "number",
+            "example": 0.8
+        },
+        "alpha":{
+            "type": "number",
+            "example": 1.1
+        },
+        "mu":{
+            "type": "number",
+            "example": 1300.0
+        },
+        "c":{
+            "type": "number",
+            "example": 100.0
+        }
+    },
+    "required": [
+        "t",
+        "v0",
+        "numU",
+        "numOde",
+        "a",
+        "sigma",
+        "lambda",
+        "correlation",
+        "alpha",
+        "mu",
+        "c"
+    ],
+    "type": "object"
+}

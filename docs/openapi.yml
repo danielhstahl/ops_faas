@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Ops Risk Demo
+  description: Demonstration for finding the density of the loss distribution for Operational Risk
+  version: '1'
+
+servers:
+  - url: ##CHANGE
+    description: Production server
+
+paths:
+  /v1/ops/density:
+    post:
+      summary: Computes the loss density for operational risk
+      description: Computes the loss density for operational risk
+      responses: 
+        '200':
+          description: Density at points
+          content:
+            application/json: 
+              schema:
+                $ref: './PostDensityResponse.json'
+              example:
+                $ref: './PostDensityExampleResponse.json'
+        '400':
+          description: Error for incorrect request
+          content:
+            application/json: 
+              schema:
+                $ref: './ErrorResponse.json'        
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './PostDensityOptions.json'
