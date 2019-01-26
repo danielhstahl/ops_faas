@@ -1,16 +1,18 @@
 openapi: 3.0.0
 info:
-  title: Credit Risk Demo
-  description: Demonstration for finding the density of a credit portfolio
+  title: Ops Risk Demo
+  description: >-
+    Demonstration for finding the density of the loss distribution for
+    Operational Risk
   version: '1'
 servers:
-  - url: null
+  - url: 'https://e43exqgwxl.execute-api.us-east-1.amazonaws.com/prd'
     description: Production server
 paths:
-  /v1/credit/density:
+  /v1/ops/density:
     post:
-      summary: Computes the loss density of a loan portfolio
-      description: Computes the loss density of a loan portfolio
+      summary: Computes the loss density for operational risk
+      description: Computes the loss density for operational risk
       responses:
         '200':
           description: Density at points
@@ -53,29 +55,56 @@ paths:
             schema:
               additionalProperties: false
               properties:
+                t:
+                  type: number
+                  example: 1
+                  description: Time Horizon
+                a:
+                  type: number
+                  example: 0.3
+                  description: Speed
+                sigma:
+                  type: number
+                  example: 0.3
+                  description: Volatility
                 lambda:
                   type: number
-                  example: 0.05
-                q:
+                  example: 100
+                  description: Jump Frequency
+                correlation:
                   type: number
-                  example: 0.05
+                  example: 0.8
+                  description: Correlation
+                alpha:
+                  type: number
+                  example: 1.1
+                  description: Alpha
+                mu:
+                  type: number
+                  example: 1300
+                  description: Shift (Stable)
+                c:
+                  type: number
+                  example: 100
+                  description: Scale (Stable)
                 numU:
                   type: integer
                   example: 128
-                pd:
-                  type: number
-                  example: 0.02
-                numLoans:
+                  description: Steps in U
+                numOde:
                   type: integer
-                  example: 100000
-                volatility:
-                  type: number
-                  example: 0.5
+                  example: 128
+                  description: Steps in ODE
               required:
-                - lambda
-                - q
+                - t
+                - v0
                 - numU
-                - pd
-                - numLoans
-                - volatility
+                - numOde
+                - a
+                - sigma
+                - lambda
+                - correlation
+                - alpha
+                - mu
+                - c
               type: object
