@@ -1,5 +1,5 @@
 {
-  "name": "credit_faas",
+  "name": "ops_faas",
   "version": "1.0.0",
   "description": "integration tests",
   "main": "index.js",
