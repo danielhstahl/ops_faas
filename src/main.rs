@@ -29,7 +29,6 @@ fn construct_error(e_message: &str) -> String {
 #[serde(rename_all = "camelCase")]
 struct Parameters {
     t: f64,
-    v0: f64,
     a:f64,
     sigma:f64,
     lambda:f64,
@@ -70,11 +69,12 @@ fn compute_x_max(lambda:f64, mu:f64, c:f64, t:f64)->f64{
 }
 fn get_density(parameters: Parameters) -> Vec<Element> {
     let Parameters {
-        t, v0, a, sigma, 
+        t,  a, sigma, 
         lambda, correlation, 
         alpha, mu, c, num_u,
         num_ode
     } = parameters;
+    let v0=1.0;//made for ease
     let x_max = compute_x_max(lambda, mu, c, t);
     let cf=cf_functions::alpha_stable_leverage(
         t, v0, a, sigma, lambda, 
@@ -96,7 +96,7 @@ mod tests {
     use super::*;
     #[test]
     fn test_deserialize() {
-        let json_str="{\"t\":1.0,\"v0\":0.9, \"a\":0.4,\"numU\":128,\"sigma\":0.3,\"correlation\":0.9,\"alpha\":0.5, \"mu\":1300.0, \"c\":100.0, \"numOde\":128, \"lambda\":100.0}";
+        let json_str="{\"t\":1.0,\"a\":0.4,\"numU\":128,\"sigma\":0.3,\"correlation\":0.9,\"alpha\":0.5, \"mu\":1300.0, \"c\":100.0, \"numOde\":128, \"lambda\":100.0}";
         let parameters: Parameters = serde_json::from_str(json_str).unwrap();
         assert_eq!(parameters.t, 1.0);
         assert_eq!(parameters.num_u, 128);
@@ -106,7 +106,6 @@ mod tests {
         
         let parameters=Parameters{
             t:1.0,
-            v0:0.9,
             a:0.4,
             num_u:128,
             sigma:0.4,

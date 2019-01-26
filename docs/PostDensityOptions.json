@@ -3,47 +3,53 @@
     "properties":{
         "t":{
             "type": "number",
-            "example": 1.0
-        },
-        "v0":{
-            "type": "number",
-            "example": 0.95
-        },
-        "numU":{
-            "type": "integer",
-            "example": 128
-        },
-        "numOde":{
-            "type": "integer",
-            "example": 128
+            "example": 1.0,
+            "description": "Time Horizon"
         },
         "a":{
             "type": "number",
-            "example": 0.3
+            "example": 0.3,
+            "description": "Speed"
         },
         "sigma":{
             "type": "number",
-            "example": 0.3
+            "example": 0.3,
+            "description": "Volatility"
         },
         "lambda":{
             "type": "number",
-            "example": 100.0
+            "example": 100.0,
+            "description": "Jump Frequency"
         },
         "correlation":{
             "type": "number",
-            "example": 0.8
+            "example": 0.8,
+            "description": "Correlation"
         },
         "alpha":{
             "type": "number",
-            "example": 1.1
+            "example": 1.1,
+            "description": "Alpha"
         },
         "mu":{
             "type": "number",
-            "example": 1300.0
+            "example": 1300.0,
+            "description": "Shift (Stable)"
         },
         "c":{
             "type": "number",
-            "example": 100.0
+            "example": 100.0,
+            "description": "Scale (Stable)"
+        },
+        "numU":{
+            "type": "integer",
+            "example": 128,
+            "description": "Steps in U"
+        },
+        "numOde":{
+            "type": "integer",
+            "example": 128,
+            "description": "Steps in ODE"
         }
     },
     "required": [
