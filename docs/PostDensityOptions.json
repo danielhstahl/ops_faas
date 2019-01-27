@@ -54,7 +54,6 @@
     },
     "required": [
         "t",
-        "v0",
         "numU",
         "numOde",
         "a",
