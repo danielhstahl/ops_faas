@@ -97,7 +97,6 @@ paths:
                   description: Steps in ODE
               required:
                 - t
-                - v0
                 - numU
                 - numOde
                 - a

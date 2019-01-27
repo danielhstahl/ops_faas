@@ -29,15 +29,15 @@ fn construct_error(e_message: &str) -> String {
 #[serde(rename_all = "camelCase")]
 struct Parameters {
     t: f64,
-    a:f64,
-    sigma:f64,
-    lambda:f64,
-    correlation:f64,
-    alpha:f64,
-    mu:f64,
-    c:f64,
+    a: f64,
+    sigma: f64,
+    lambda: f64,
+    correlation: f64,
+    alpha: f64,
+    mu: f64,
+    c: f64,
     num_u: usize,
-    num_ode:usize
+    num_ode: usize,
 }
 
 #[derive(Debug, Serialize)]
@@ -64,27 +64,41 @@ fn ops_faas(event: Request) -> Result<Vec<Element>, Box<dyn Error>> {
     let parameters: Parameters = serde_json::from_reader(event.body().as_ref())?;
     Ok(get_density(parameters))
 }
-fn compute_x_max(lambda:f64, mu:f64, c:f64, t:f64)->f64{
-    lambda*(mu+35.0*c)*t
+fn compute_x_max(lambda: f64, mu: f64, c: f64, t: f64) -> f64 {
+    lambda * (mu + 35.0 * c) * t
 }
 fn get_density(parameters: Parameters) -> Vec<Element> {
     let Parameters {
-        t,  a, sigma, 
-        lambda, correlation, 
-        alpha, mu, c, num_u,
-        num_ode
+        t,
+        a,
+        sigma,
+        lambda,
+        correlation,
+        alpha,
+        mu,
+        c,
+        num_u,
+        num_ode,
     } = parameters;
-    let v0=1.0;//made for ease
+    let v0 = 1.0; //made for ease
     let x_max = compute_x_max(lambda, mu, c, t);
-    let cf=cf_functions::alpha_stable_leverage(
-        t, v0, a, sigma, lambda, 
-        correlation, alpha, mu, c, num_ode
+    let cf = cf_functions::alpha_stable_leverage(
+        t,
+        v0,
+        a,
+        sigma,
+        lambda,
+        correlation,
+        alpha,
+        mu,
+        c,
+        num_ode,
     );
     fang_oost::get_density(
         X_MIN,
         x_max,
         fang_oost::get_x_domain(NUM_X, X_MIN, x_max),
-        &fang_oost::get_discrete_cf(num_u, X_MIN, x_max, &cf)
+        &fang_oost::get_discrete_cf(num_u, X_MIN, x_max, &cf),
     )
     .zip(fang_oost::get_x_domain(NUM_X, X_MIN, x_max))
     .map(|(density, at_point)| Element { density, at_point })
@@ -103,20 +117,19 @@ mod tests {
     }
     #[test]
     fn test_get_density() {
-        
-        let parameters=Parameters{
-            t:1.0,
-            a:0.4,
-            num_u:128,
-            sigma:0.4,
-            alpha:1.1,
-            lambda:100.0,
-            c:100.0,
-            mu:1300.0,
-            correlation:0.9,
-            num_ode:128
+        let parameters = Parameters {
+            t: 1.0,
+            a: 0.4,
+            num_u: 128,
+            sigma: 0.4,
+            alpha: 1.1,
+            lambda: 100.0,
+            c: 100.0,
+            mu: 1300.0,
+            correlation: 0.9,
+            num_ode: 128,
         };
-        let result=get_density(parameters);
+        let result = get_density(parameters);
         assert_eq!(result.len(), 512);
     }
 }
