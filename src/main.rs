@@ -1,17 +1,8 @@
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate serde_json;
-extern crate cf_dist_utils;
-extern crate cf_functions;
-extern crate fang_oost;
-extern crate lambda_http;
-extern crate lambda_runtime as runtime;
-extern crate num_complex;
-extern crate rayon;
-use self::rayon::prelude::*;
 use lambda_http::{lambda, Body, IntoResponse, Request, Response};
-use runtime::{error::HandlerError, Context};
+use lambda_runtime::{error::HandlerError, Context};
+use rayon::prelude::*;
+use serde_derive::{Deserialize, Serialize};
+use serde_json::json;
 use std::error::Error;
 
 fn build_response(code: u16, body: &str) -> impl IntoResponse {
