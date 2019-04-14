@@ -3,7 +3,6 @@ WORKDIR /code
 COPY src src
 COPY Cargo.toml .
 COPY Cargo.lock .
-COPY benches benches
 RUN cargo clean
 RUN cargo bench
 RUN curl -L https://github.com/mozilla/grcov/releases/download/v0.4.3/grcov-linux-x86_64.tar.bz2 | tar jxf -
@@ -21,7 +20,6 @@ FROM rust:1.33-slim
 RUN rustup target add x86_64-unknown-linux-musl
 WORKDIR /code
 COPY src src
-COPY benches benches
 COPY Cargo.toml .
 COPY Cargo.lock .
 RUN apt-get update
