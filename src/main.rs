@@ -73,7 +73,7 @@ fn get_density(parameters: Parameters) -> Vec<Element> {
     } = parameters;
     let v0 = 1.0; //made for ease
     let x_max = compute_x_max(lambda, mu, c, t);
-    let cf = cf_functions::alpha_stable_leverage(
+    let cf = cf_functions::stable::alpha_stable_leverage(
         t,
         v0,
         a,
