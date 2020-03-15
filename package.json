@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phillyfan1138/credit_faas.git"
+    "url": "git+https://github.com/phillyfan1138/ops_faas.git"
   },
   "author": "Daniel Stahl",
   "license": "ISC",
