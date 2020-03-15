@@ -40,6 +40,7 @@ jobs:
         - uses: phillyfan1138/musl-rust-action@master
         - name: Run integration tests
           run: |
+            rm -rf node_modules
             docker pull lambci/lambda:provided
             npm ci
             npm test
