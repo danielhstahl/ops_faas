@@ -19,4 +19,4 @@ lambda_runtime = "0.2.1"
 
 
 [badges]
-travis-ci = { repository = "phillyfan1138/ops_faas" }
+travis-ci = { repository = "danielhstahl/ops_faas" }
