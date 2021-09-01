@@ -85,15 +85,12 @@ fn get_density(parameters: Parameters) -> Vec<Element> {
         c,
         num_ode,
     );
-    fang_oost::get_density(
-        X_MIN,
-        x_max,
-        fang_oost::get_x_domain(NUM_X, X_MIN, x_max),
-        &fang_oost::get_discrete_cf(num_u, X_MIN, x_max, &cf),
-    )
-    .zip(fang_oost::get_x_domain(NUM_X, X_MIN, x_max))
-    .map(|(density, at_point)| Element { density, at_point })
-    .collect()
+    cf_dist_utils::get_pdf(NUM_X, num_u, X_MIN, x_max, &cf)
+        .map(|fang_oost::GraphElement { x, value }| Element {
+            density: value,
+            at_point: x,
+        })
+        .collect()
 }
 
 #[cfg(test)]
